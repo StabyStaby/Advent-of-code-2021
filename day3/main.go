@@ -13,14 +13,15 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(puzzle1(strings.Split(string(file), "\n")))
+	fmt.Println(puzzle1(strings.Split(string(file), "\r\n")))
 }
 
 func puzzle1(data []string) int {
 	bytes := []int{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 	for _, v := range data {
 		for i := 0; i < len(v); i++ {
-			number, err := strconv.Atoi(string(v[i]))
+			// number, err := strconv.Atoi(string(v[i]))
+			number, err := strconv.ParseInt(string(v[i]), 2, 32)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -29,40 +30,19 @@ func puzzle1(data []string) int {
 			}
 		}
 	}
-	var gamma byte
-	var epsilon byte
+	var gamma int32
+	var epsilon int32
 	for i := 0; i < len(bytes); i++ {
-		// for i := len(bytes) - 1; i >= 0; i-- {
 		if bytes[i] > len(data)/2 {
-			gamma = gamma | (1 << i)
-			epsilon = epsilon | (0 << i)
+			gamma = gamma | (1 << (len(bytes) - 1 - i))
 		} else {
-			gamma = gamma | (0 << i)
-			epsilon = epsilon | (1 << i)
+			epsilon = epsilon | (1 << (len(bytes) - 1 - i))
 		}
 	}
-	fmt.Println(bytes)
-	fmt.Println(gamma)
-	fmt.Println(epsilon)
-	fmt.Print("epislon: ")
-	for i := 11; i >= 0; i-- {
-		bit := epsilon & (1 << i)
-		if bit != 0 {
-			fmt.Print("1")
-		} else {
-			fmt.Print("0")
-		}
-	}
-	fmt.Println()
-	fmt.Print("gamma: ")
-	for i := 11; i >= 0; i-- {
-		bit := gamma & (1 << i)
-		if bit != 0 {
-			fmt.Print("1")
-		} else {
-			fmt.Print("0")
-		}
-	}
-	fmt.Println()
 	return int(gamma) * int(epsilon)
+}
+func puzzle2(data []string) int {
+	selectedBytes := []string{}
+
+	return 0
 }
