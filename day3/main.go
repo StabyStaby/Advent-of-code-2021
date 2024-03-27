@@ -74,16 +74,24 @@ func CommonByte(data []string, position int, mostCommon bool) string {
 			count++
 		}
 	}
-	if count >= len(data)/2 && mostCommon {
-		return "1"
-	} else if count <= len(data)/2 && !mostCommon {
-		return "0"
-	} else if count < len(data)/2 && mostCommon {
-		return "0"
-	} else if count > len(data)/2 && !mostCommon {
-		return "1"
+	/*2 main cases and 2 sub cases each
+	count returns the number of 1's
+	if count > half most common is 1
+	else the most common is 0
+	*/
+	if mostCommon {
+		if count >= len(data)/2 {
+			return "1"
+		} else {
+			return "0"
+		}
+	} else {
+		if count < len(data)/2 {
+			return "1"
+		} else {
+			return "0"
+		}
 	}
-	return "0"
 }
 func getBytes(data []string, position int, bite string) []string {
 	bytes := []string{}
